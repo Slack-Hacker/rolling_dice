@@ -101,7 +101,9 @@ function setDiceMode(num) {
         die2.classList.remove("hidden");
     }
 
-    updateResultDisplay(6, 6);
+    const val1 = parseInt(document.getElementById("die-1").getAttribute("data-roll")) || 6;
+    const val2 = parseInt(document.getElementById("die-2").getAttribute("data-roll")) || 6;
+    updateResultDisplay(val1, val2);
 }
 
 // Generate random number 1 to 6
@@ -109,10 +111,11 @@ function getRandomNumber() {
     return Math.floor(Math.random() * 6) + 1;
 }
 
-// Apply 3D rotation to die element
+// Apply 3D rotation to die element and set active data-roll attribute
 function rotateDie(dieElement, value) {
     const coords = faceRotations[value];
     dieElement.style.transform = `rotateX(${coords.x + 720}deg) rotateY(${coords.y + 720}deg)`;
+    dieElement.setAttribute('data-roll', value);
 }
 
 // Update score result UI
