@@ -2,7 +2,7 @@
 
 A sleek, interactive, and modern 3D Rolling Dice application built using **HTML5**, **CSS3**, and **Vanilla JavaScript**.
 
-![Rolling Dice Preview](roll_dice_demo_1788184745259.webp)
+![Rolling Dice Preview](preview.webp)
 
 ## Features
 
@@ -19,11 +19,10 @@ A sleek, interactive, and modern 3D Rolling Dice application built using **HTML5
 - **CSS3**: 3D keyframe animations, CSS Grid/Flexbox, glassmorphism, HSL color variables.
 - **JavaScript (ES6+)**: Event handling, DOM manipulation, 3D matrix math, Web Audio API sound synthesis.
 
-## Quick Start
+## Quick Start & Live Demo
 
-1. Clone or download this repository.
-2. Open `index.html` in any web browser.
-3. Click **Roll Dice** or hit <kbd>Spacebar</kbd> to start rolling!
+1. **Live Preview**: Enable **GitHub Pages** in Repository Settings -> Pages -> Source: `main` branch `/ (root)`.
+2. **Local**: Clone the repo and open `index.html` in any web browser.
 
 ## License
 
