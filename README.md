@@ -1,29 +1,23 @@
-# Rolling Dice Simulator 🎲
+# Dice Rolling Game 🎲
 
-A sleek, interactive, and modern 3D Rolling Dice application built using **HTML5**, **CSS3**, and **Vanilla JavaScript**.
+A simple, beginner-friendly Dice Rolling application built using **HTML**, **CSS**, and **JavaScript**.
 
-![Rolling Dice Preview](preview.webp)
+![Rolling Dice Screenshot](screenshot.png)
 
 ## Features
 
-- **3D Tumbling Dice Animation**: Realistic CSS 3D cube rotations (`preserve-3d`) that spin on click/keypress and land on the rolled face.
-- **1 Die & 2 Dice Modes**: Switch between rolling a single die or two dice simultaneously.
-- **Procedural Web Audio Engine**: Synthesized dice clattering sounds using the Web Audio API without any external sound files.
-- **Roll History & Breakdown**: Real-time roll log tracking totals and individual die values.
-- **Keyboard Shortcuts**: Press <kbd>Spacebar</kbd> or <kbd>Enter</kbd> to roll instantly.
-- **Responsive & Modern Design**: Dark glassmorphism theme with vibrant glowing elements.
+- **Dice Rolling Animation**: Smooth 3D dice spin animation when you click the Roll button.
+- **1 Die & 2 Dice Modes**: Switch easily between rolling 1 die or 2 dice.
+- **Roll History**: Keeps track of all past rolls and sums.
+- **Clean & Simple Code**: Easy to understand, study, or modify for beginners.
+
+## How to Run
+
+1. Open `index.html` in any web browser.
+2. Click **🎲 Roll Dice** to roll!
 
 ## Tech Stack
 
-- **HTML5**: Semantic layout & accessibility.
-- **CSS3**: 3D keyframe animations, CSS Grid/Flexbox, glassmorphism, HSL color variables.
-- **JavaScript (ES6+)**: Event handling, DOM manipulation, 3D matrix math, Web Audio API sound synthesis.
-
-## Quick Start & Live Demo
-
-1. **Live Preview**: Enable **GitHub Pages** in Repository Settings -> Pages -> Source: `main` branch `/ (root)`.
-2. **Local**: Clone the repo and open `index.html` in any web browser.
-
-## License
-
-MIT License
+- **HTML5**
+- **CSS3**
+- **Vanilla JavaScript**

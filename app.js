@@ -1,16 +1,9 @@
-/* ==========================================
-   DICE ROLLER - JAVASCRIPT LOGIC
-   Simple, Modular, and Well-Commented Code
-   ========================================== */
+// Super Simple Newbie JavaScript for Rolling Dice Game
 
-// --- State Variables ---
-let diceCount = 1;         // Default: 1 Die mode
-let isRolling = false;     // Prevents overlapping rolls
-let soundEnabled = true;   // Sound toggle status
-let rollHistory = [];      // Stores history of rolls
+let diceCount = 1;
+let isRolling = false;
 
-// --- Target 3D Rotation Angles for Each Die Face ---
-// Each number (1 to 6) corresponds to exact X/Y rotations to display that face in front
+// 3D rotation angles for 6 faces
 const faceRotations = {
     1: { x: 0, y: 0 },
     2: { x: 0, y: -180 },
@@ -20,246 +13,111 @@ const faceRotations = {
     6: { x: 90, y: 0 }
 };
 
-// --- DOM Elements ---
-const die1 = document.getElementById('die-1');
-const die2 = document.getElementById('die-2');
-const die2Wrapper = document.getElementById('die-2-wrapper');
-const rollBtn = document.getElementById('roll-btn');
-const mode1Btn = document.getElementById('mode-1');
-const mode2Btn = document.getElementById('mode-2');
-const resultTotal = document.getElementById('result-total');
-const resultDetails = document.getElementById('result-details');
-const historyList = document.getElementById('history-list');
-const rollCountEl = document.getElementById('roll-count');
-const soundToggle = document.getElementById('sound-toggle');
-const resetBtn = document.getElementById('reset-btn');
+// Set dice mode (1 or 2 dice)
+function setDiceMode(num) {
+    if (isRolling) return;
+    diceCount = num;
 
-// --- Web Audio API Sound Engine (No External Assets Required) ---
-let audioCtx = null;
+    const btn1 = document.getElementById("btn-1-die");
+    const btn2 = document.getElementById("btn-2-dice");
+    const die2 = document.getElementById("die-2");
 
-function playRollSound() {
-    if (!soundEnabled) return;
-    
-    try {
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-        
-        if (audioCtx.state === 'suspended') {
-            audioCtx.resume();
-        }
-
-        // Generate synthetic dice clatter sound using noise and gain
-        const now = audioCtx.currentTime;
-        const duration = 0.6;
-        
-        // Noise Buffer
-        const bufferSize = audioCtx.sampleRate * duration;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-        for (let i = 0; i < bufferSize; i++) {
-            data[i] = Math.random() * 2 - 1;
-        }
-
-        const noise = audioCtx.createBufferSource();
-        noise.buffer = buffer;
-
-        // Bandpass Filter to emulate wooden/plastic dice impact
-        const filter = audioCtx.createBiquadFilter();
-        filter.type = 'bandpass';
-        filter.frequency.setValueAtTime(800, now);
-        filter.Q.setValueAtTime(3, now);
-
-        // Envelope Gain
-        const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.exponentialRampToValueAtTime(0.01, now + duration);
-
-        noise.connect(filter);
-        filter.connect(gain);
-        gain.connect(audioCtx.destination);
-
-        noise.start(now);
-        noise.stop(now + duration);
-    } catch (e) {
-        console.warn('Audio play failed:', e);
+    if (num === 1) {
+        btn1.classList.add("active");
+        btn2.classList.remove("active");
+        die2.classList.add("hidden");
+    } else {
+        btn2.classList.add("active");
+        btn1.classList.remove("active");
+        die2.classList.remove("hidden");
     }
 }
 
-// --- Utility Functions ---
-
-/**
- * Generates a random integer between 1 and 6 (inclusive)
- * Standard Accenture / Interview random dice formula
- */
-function getRandomDieValue() {
+// Function to get random number 1 to 6
+function getRandomNumber() {
     return Math.floor(Math.random() * 6) + 1;
 }
 
-/**
- * Applies 3D rotation transform to a die element based on target value
- */
-function setDieRotation(dieElement, value) {
+// Function to rotate a die to show the rolled value
+function rotateDie(dieElement, value) {
     const coords = faceRotations[value];
-    
-    // Add extra 360-degree rotations for extra spin visual effect
-    const extraSpins = 720;
-    const rotateX = coords.x + extraSpins;
-    const rotateY = coords.y + extraSpins;
-
-    dieElement.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    dieElement.setAttribute('data-value', value);
+    // Add 720 degrees extra spin for animation effect
+    dieElement.style.transform = `rotateX(${coords.x + 720}deg) rotateY(${coords.y + 720}deg)`;
 }
 
-// --- Main Roll Action ---
+// Main function to roll dice
 function rollDice() {
     if (isRolling) return;
-    
-    isRolling = true;
-    rollBtn.classList.add('disabled');
-    
-    // Play sound effect
-    playRollSound();
 
-    // 1. Add rolling CSS animation class
-    die1.classList.add('rolling');
+    isRolling = true;
+    const rollButton = document.getElementById("roll-button");
+    const die1 = document.getElementById("die-1");
+    const die2 = document.getElementById("die-2");
+    const resultText = document.getElementById("result-text");
+
+    rollButton.disabled = true;
+
+    // Start rolling animation
+    die1.classList.add("rolling");
     if (diceCount === 2) {
-        die2.classList.add('rolling');
+        die2.classList.add("rolling");
     }
 
-    // 2. Generate random results
-    const val1 = getRandomDieValue();
-    const val2 = diceCount === 2 ? getRandomDieValue() : 0;
-    const total = val1 + val2;
+    // Generate random values
+    const roll1 = getRandomNumber();
+    const roll2 = diceCount === 2 ? getRandomNumber() : 0;
+    const total = roll1 + roll2;
 
-    // 3. After animation completes (600ms), stop rolling class and land on exact face
-    setTimeout(() => {
-        die1.classList.remove('rolling');
-        setDieRotation(die1, val1);
+    // After 600ms, stop animation and show result
+    setTimeout(function () {
+        die1.classList.remove("rolling");
+        rotateDie(die1, roll1);
 
         if (diceCount === 2) {
-            die2.classList.remove('rolling');
-            setDieRotation(die2, val2);
+            die2.classList.remove("rolling");
+            rotateDie(die2, roll2);
         }
 
-        // Update result display
-        updateResultUI(val1, val2, total);
+        // Display result
+        if (diceCount === 1) {
+            resultText.innerText = "Total: " + total;
+        } else {
+            resultText.innerText = "Total: " + total + " (" + roll1 + " + " + roll2 + ")";
+        }
 
         // Add to history
-        addRollToHistory(val1, val2, total);
+        addHistory(roll1, roll2, total);
 
-        // Re-enable roll button
+        rollButton.disabled = false;
         isRolling = false;
-        rollBtn.classList.remove('disabled');
     }, 600);
 }
 
-// --- UI Update Helpers ---
+// Function to add roll entry to history list
+function addHistory(val1, val2, total) {
+    const historyList = document.getElementById("history-list");
+    const emptyMsg = historyList.querySelector(".empty-msg");
 
-function updateResultUI(val1, val2, total) {
-    resultTotal.textContent = total;
-    
+    if (emptyMsg) {
+        historyList.innerHTML = "";
+    }
+
+    const li = document.createElement("li");
     if (diceCount === 1) {
-        resultDetails.textContent = `Die 1: ${val1}`;
+        li.innerText = "Rolled: " + total;
     } else {
-        resultDetails.textContent = `Die 1: ${val1} | Die 2: ${val2}`;
+        li.innerText = "Rolled: " + total + " (" + val1 + " + " + val2 + ")";
     }
+
+    historyList.insertBefore(li, historyList.firstChild);
 }
 
-function addRollToHistory(val1, val2, total) {
-    const rollEntry = {
-        val1,
-        val2,
-        total,
-        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' })
-    };
-
-    rollHistory.unshift(rollEntry);
-    renderHistory();
+// Function to clear history
+function clearHistory() {
+    const historyList = document.getElementById("history-list");
+    historyList.innerHTML = '<li class="empty-msg">No rolls yet</li>';
 }
 
-function renderHistory() {
-    rollCountEl.textContent = `Total Rolls: ${rollHistory.length}`;
-
-    if (rollHistory.length === 0) {
-        historyList.innerHTML = `<div class="empty-history">No rolls yet. Click "Roll Dice" to start!</div>`;
-        return;
-    }
-
-    historyList.innerHTML = rollHistory.map((item) => {
-        const breakdown = diceCount === 2 || item.val2 > 0 ? `(${item.val1} + ${item.val2})` : `(${item.val1})`;
-        return `
-            <div class="history-badge">
-                <span class="total">${item.total}</span>
-                <span class="breakdown">${breakdown}</span>
-            </div>
-        `;
-    }).join('');
-}
-
-// --- Mode Switching ---
-
-function setMode(numDice) {
-    if (isRolling) return;
-
-    diceCount = numDice;
-
-    if (numDice === 1) {
-        mode1Btn.classList.add('active');
-        mode2Btn.classList.remove('active');
-        die2Wrapper.classList.add('hidden');
-    } else {
-        mode2Btn.classList.add('active');
-        mode1Btn.classList.remove('active');
-        die2Wrapper.classList.remove('hidden');
-    }
-
-    // Reset current display
-    const val1 = parseInt(die1.getAttribute('data-value')) || 6;
-    const val2 = parseInt(die2.getAttribute('data-value')) || 6;
-    const total = numDice === 1 ? val1 : val1 + val2;
-    
-    updateResultUI(val1, val2, total);
-}
-
-// --- Event Listeners ---
-
-// Button click to roll
-rollBtn.addEventListener('click', rollDice);
-
-// Keyboard controls (Spacebar or Enter to roll)
-document.addEventListener('keydown', (e) => {
-    if (e.code === 'Space' || e.code === 'Enter') {
-        // Prevent default spacebar scrolling
-        e.preventDefault();
-        rollDice();
-    }
-});
-
-// Mode buttons
-mode1Btn.addEventListener('click', () => setMode(1));
-mode2Btn.addEventListener('click', () => setMode(2));
-
-// Sound toggle button
-soundToggle.addEventListener('click', () => {
-    soundEnabled = !soundEnabled;
-    const icon = soundToggle.querySelector('i');
-    if (soundEnabled) {
-        icon.className = 'fa-solid fa-volume-high';
-        soundToggle.title = 'Sound On';
-    } else {
-        icon.className = 'fa-solid fa-volume-xmark';
-        soundToggle.title = 'Sound Off';
-    }
-});
-
-// Reset history button
-resetBtn.addEventListener('click', () => {
-    rollHistory = [];
-    renderHistory();
-});
-
-// --- Initial Setup ---
-setDieRotation(die1, 6);
-setDieRotation(die2, 6);
-setMode(1);
+// Set initial dice rotation
+rotateDie(document.getElementById("die-1"), 6);
+rotateDie(document.getElementById("die-2"), 6);
