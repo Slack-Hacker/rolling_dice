@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rolling Dice Simulator</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="logo">
+                <i class="fa-solid fa-dice-d6 logo-icon"></i>
+                <h1>Dice Roller</h1>
+            </div>
+            <p class="subtitle">Simple, interactive HTML, CSS & JavaScript dice simulator</p>
+        </header>
+
+        <!-- Main Card -->
+        <main class="main-card">
+            <!-- Controls Bar -->
+            <div class="controls-bar">
+                <div class="mode-selector">
+                    <span class="label">Mode:</span>
+                    <button id="mode-1" class="mode-btn active" data-dice="1">1 Die</button>
+                    <button id="mode-2" class="mode-btn" data-dice="2">2 Dice</button>
+                </div>
+                
+                <div class="utility-controls">
+                    <button id="sound-toggle" class="icon-btn" title="Toggle Sound">
+                        <i class="fa-solid fa-volume-high"></i>
+                    </button>
+                    <button id="reset-btn" class="icon-btn danger" title="Reset History">
+                        <i class="fa-solid fa-rotate-left"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Dice Arena -->
+            <div class="dice-arena" id="dice-arena">
+                <!-- Die 1 -->
+                <div class="die-wrapper">
+                    <div class="die" id="die-1" data-value="6">
+                        <div class="face face-1">
+                            <span class="pip center"></span>
+                        </div>
+                        <div class="face face-2">
+                            <span class="pip top-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-3">
+                            <span class="pip top-left"></span>
+                            <span class="pip center"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-4">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-5">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip center"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-6">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip middle-left"></span>
+                            <span class="pip middle-right"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Die 2 (Hidden by default in 1 die mode) -->
+                <div class="die-wrapper hidden" id="die-2-wrapper">
+                    <div class="die" id="die-2" data-value="6">
+                        <div class="face face-1">
+                            <span class="pip center"></span>
+                        </div>
+                        <div class="face face-2">
+                            <span class="pip top-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-3">
+                            <span class="pip top-left"></span>
+                            <span class="pip center"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-4">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-5">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip center"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                        <div class="face face-6">
+                            <span class="pip top-left"></span>
+                            <span class="pip top-right"></span>
+                            <span class="pip middle-left"></span>
+                            <span class="pip middle-right"></span>
+                            <span class="pip bottom-left"></span>
+                            <span class="pip bottom-right"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Result Summary Display -->
+            <div class="result-box">
+                <div class="result-title">Total Result</div>
+                <div class="result-value" id="result-total">6</div>
+                <div class="result-details" id="result-details">Die 1: 6</div>
+            </div>
+
+            <!-- Roll Action Button -->
+            <div class="action-section">
+                <button id="roll-btn" class="roll-btn">
+                    <i class="fa-solid fa-dice"></i>
+                    <span>Roll Dice</span>
+                </button>
+                <div class="keyboard-hint">Tip: Press <kbd>Spacebar</kbd> or <kbd>Enter</kbd> to roll!</div>
+            </div>
+
+            <!-- Roll History & Stats -->
+            <section class="history-section">
+                <div class="history-header">
+                    <h3><i class="fa-solid fa-clock-rotate-left"></i> Roll History</h3>
+                    <span class="roll-counter" id="roll-count">Total Rolls: 0</span>
+                </div>
+                <div class="history-list" id="history-list">
+                    <div class="empty-history">No rolls yet. Click "Roll Dice" to start!</div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+            <p>Built with HTML, CSS & JavaScript</p>
+        </footer>
+    </div>
+
+    <!-- Script -->
+    <script src="app.js"></script>
+</body>
+</html>
