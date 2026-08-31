@@ -4,22 +4,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dice Rolling Game</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
-    <div class="container">
-        <h1>Dice Roller</h1>
-        <p class="subtitle">Select mode and click Roll!</p>
+    <div class="card">
+        <!-- Header -->
+        <div class="header">
+            <h1>Dice Rolling Game</h1>
+            <p>Select your mode and roll the dice!</p>
+        </div>
 
-        <!-- Mode Buttons -->
-        <div class="mode-container">
+        <!-- Mode Toggle Switch -->
+        <div class="mode-switch">
             <button id="btn-1-die" class="mode-btn active" onclick="setDiceMode(1)">1 Die</button>
             <button id="btn-2-dice" class="mode-btn" onclick="setDiceMode(2)">2 Dice</button>
         </div>
 
-        <!-- Dice Display Area -->
-        <div class="dice-box" id="dice-box">
+        <!-- Dice Display Arena -->
+        <div class="dice-arena">
             <!-- Die 1 -->
             <div class="die" id="die-1">
                 <div class="face face-1"><span class="pip center"></span></div>
@@ -30,7 +37,7 @@
                 <div class="face face-6"><span class="pip top-left"></span><span class="pip top-right"></span><span class="pip middle-left"></span><span class="pip middle-right"></span><span class="pip bottom-left"></span><span class="pip bottom-right"></span></div>
             </div>
 
-            <!-- Die 2 (Hidden in 1 Die mode) -->
+            <!-- Die 2 (Hidden by default) -->
             <div class="die hidden" id="die-2">
                 <div class="face face-1"><span class="pip center"></span></div>
                 <div class="face face-2"><span class="pip top-left"></span><span class="pip bottom-right"></span></div>
@@ -41,19 +48,27 @@
             </div>
         </div>
 
-        <!-- Result -->
-        <h2 id="result-text">Total: 6</h2>
+        <!-- Result Box -->
+        <div class="result-badge">
+            <span class="result-label">Total Roll</span>
+            <span class="result-score" id="result-text">6</span>
+            <span class="result-breakdown" id="result-details">Die 1: 6</span>
+        </div>
 
         <!-- Roll Button -->
-        <button id="roll-button" onclick="rollDice()">🎲 Roll Dice</button>
+        <button id="roll-button" onclick="rollDice()">
+            <span>Roll Dice</span>
+        </button>
 
-        <!-- Roll History -->
-        <div class="history-container">
-            <h3>Roll History</h3>
-            <ul id="history-list">
-                <li class="empty-msg">No rolls yet</li>
-            </ul>
-            <button class="clear-btn" onclick="clearHistory()">Clear History</button>
+        <!-- Roll History Section -->
+        <div class="history-box">
+            <div class="history-header">
+                <span>Roll History</span>
+                <button class="clear-btn" onclick="clearHistory()">Clear</button>
+            </div>
+            <div class="history-list" id="history-list">
+                <div class="empty-msg">No rolls recorded yet</div>
+            </div>
         </div>
     </div>
 
