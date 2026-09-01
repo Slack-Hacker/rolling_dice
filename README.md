@@ -1,32 +1,61 @@
-# Dice Rolling Game 🎲📱
+# 🎲 Interactive 3D Rolling Dice App
 
-A simple, modern, and interactive Dice Rolling application built using **HTML**, **CSS**, and **JavaScript**, compiled as a native **Android App (.apk)**.
+[![HTML5](https://img.shields.io/badge/HTML5-E34F26.svg)](https://developer.mozilla.org/en-US/docs/Web/HTML)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6.svg)](https://developer.mozilla.org/en-US/docs/Web/CSS)
+[![JavaScript](https://img.shields.io/badge/JavaScript-ES6%2B-F7DF1E.svg)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+[![Android](https://img.shields.io/badge/Android-APK-3DDC84.svg)](https://developer.android.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-![Rolling Dice Screenshot](screenshot.png)
+A dynamic, realistic **3D Rolling Dice Application** designed for both Web browsers and Android mobile devices.
 
-## 📲 Download Android APK
+This application features smooth 3D CSS physics animations, touch & click interactions, randomized multi-dice rolls, dynamic score tracking, and clean UI styling. Includes a ready-to-install Android package (`rolling-dice.apk`).
 
-You can download and install the Android app directly onto your phone:
-👉 **[Download rolling-dice.apk](https://github.com/Slack-Hacker/rolling_dice/raw/main/rolling-dice.apk)** *(4.2 MB)*
+---
 
-## Features
+## 🌟 Key Features
 
-- **3D Tumbling Dice Animation**: Smooth 3D dice rotation effect on roll.
-- **Loud Dice Rolling Sound Engine**: Realistic multi-tap audio using Web Audio API.
-- **1 Die & 2 Dice Modes**: Easily switch modes using the segment control.
-- **Roll History**: Live log tracking total scores and individual die values.
-- **Android APK Included**: Native WebView Android wrapper using Capacitor.
+- **🎲 Realistic 3D Roll Physics**: Smooth rotational animations and randomized face outcomes using pure CSS3 3D transforms & JavaScript.
+- **📱 Cross-Platform (Web & Mobile)**: Optimized responsive layout that works seamlessly across desktop browsers and Android smartphones.
+- **📦 Pre-compiled Android APK**: Includes a ready-to-run `.apk` file for direct installation on Android devices (`rolling-dice.apk`).
+- **✨ Sleek Modern UI**: Clean user interface with immediate visual feedback, sound effects, and score aggregation.
 
-## How to Run
+---
 
-### Mobile (Android)
-- Download `rolling-dice.apk` onto your Android device and tap to install!
+## 📁 Repository Structure
 
-### Web Browser
-- Open `index.html` in any web browser.
+```
+rolling_dice/
+├── index.html         # Main web application layout
+├── styles.css         # 3D CSS transforms, animations, and responsive styling
+├── app.js             # Core dice roll logic, randomization, and event listeners
+├── rolling-dice.apk   # Pre-built Android application installer
+├── screenshot.png     # Application preview screenshot
+├── .gitignore         # Git ignore configuration
+└── README.md          # Project documentation
+```
 
-## Tech Stack
+---
 
-- **HTML5 / CSS3 / JavaScript (ES6+)**
-- **Web Audio API**
-- **Capacitor Android (SDK 36)**
+## 🚀 Quick Start & Usage
+
+### 1. Web Browser (Direct Play)
+
+Simply open `index.html` in any web browser, or serve it using a local web server:
+
+```bash
+# Using Python builtin HTTP server
+python -m http.server 8000
+```
+Navigate to **`http://localhost:8000`** in your browser.
+
+### 2. Android Installation
+
+1. Transfer `rolling-dice.apk` to your Android device.
+2. Enable "Install from Unknown Sources" in device settings.
+3. Tap on `rolling-dice.apk` to install and launch the app!
+
+---
+
+## 📜 License
+
+Distributed under the MIT License. See `LICENSE` for details.
